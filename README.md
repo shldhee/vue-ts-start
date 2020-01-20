@@ -37,8 +37,94 @@ let hex: number = 0xff;
 ``` typescript
 let firstName: string = "김";
 let lastName:string = "철수";
-
-let age:number = 11;
 ```
 
+### 배열(Array)
 
+``` typescript
+let list: number[] = [1,2,3]; // 타입 정하고 []
+let list: Array<number> = [1,2,3]; // 제네릭 배열형
+```
+
+### 튜플(Tuple)
+
+``` typescript
+let point: [string, number];
+point = ["x",10];
+point = [10,"x"]; // Error
+```
+
+### 열걸(Enum)
+
+``` typescript
+enum Color { Red = 1, Green, Blue };
+let color: Color = Color.Green
+console.log(color)
+```
+
+### 임의(Any)
+
+``` typescript
+let sure: any = 1
+sure = "이건 문자열"
+sure = true
+```
+
+### 보이드(Void)
+
+``` typescript
+function log(msg): void {
+  console.log("LOG : " + msg)
+}
+```
+
+### 널과 미선언 (null, undefined)
+
+``` typescript
+let a: number = null;
+```
+
+- 추천하지 않음
+
+### 네버 (Never)
+
+- 절대 발생하지 않을 값의 유형(즉 리턴값이 없는 값)
+
+``` typescript
+function error(message: string): never {
+  throw new Error(message)
+}
+
+function forever(): never {
+  while(true) {
+
+  }
+}
+```
+
+### 객체(Object)
+
+- 객체는 타입으로 정의되지 않는 형이다.
+
+``` typescript
+let user: { name: string; age: number; } = { name: '김철수', age: 12};
+console.log(user)
+```
+
+## 타입 별칭(type alias)
+
+- 타입스크립트에서는 이미 존재하는 타입에 다른 이름을 붙여 복잡한 타입을 간단하게 쓸수 있게 하는 기능(변수 선언 할당이랑 비슷한듯)
+
+``` typescript
+type UNIQID = string | null
+function getUserID(id: UNIQID) {
+  console.log(id)
+}
+
+getUserID('asdfjasdoif')
+getUserID(null)
+getUserID(12)
+
+type USER_TYPE = "TESTER" | "ADMIN";
+let userType: USER_TYPE = "TESTER";
+```
