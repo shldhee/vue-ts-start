@@ -267,3 +267,164 @@ let dog: Dog = new Dog('빈희', 4);
 console.log(dog.info())
 console.log(dog.bark('멍!'))
 ```
+
+### 접근제한자
+
+#### public
+
+- `public`은 선언된 멤버 변수나 멤버 메서드 프로그램의 어느 곳에서 접근 가능
+- 접근제어자가 명시되지 않을 경우 `public`으로 본다.
+
+``` typescript
+class Face {
+    public egde: number;
+
+    constructor(edge: number) {
+        this.egde = edge;
+    }
+}
+
+class Rect extends Face {
+    constructor() {
+        super(4)
+    }
+}
+
+const rect = new Rect();
+console.log(rect.egde);
+```
+
+#### private
+
+- `private` 멤버는 해당 클래스 내부에서만 접근이 가능. 상속된 클래스나 바깥에서 접근하려고 하면 에러 발생
+
+``` typescript
+class Face {
+  private edge: number;
+
+  constructor(edge: number) {
+    this.edge = edge;
+  }
+
+  public addEdge() {
+    this.edge++;
+  }
+
+  protected getEdge() {
+    return this.edge;
+  }
+}
+
+class Rect extends Face {
+  constructor() {
+    super(4);
+  }
+
+  public getEdgePublic() {
+    // return this.edge // Error
+    return this.getEdge();
+  }
+}
+
+const rect = new Rect();
+console.log(rect.getEdgePublic());
+//console.log(rect.edge); // Error
+```
+
+#### protected
+
+- `public`, `private` 중간
+- 해당 클래스와 서브클래스에서만 접근 가능
+
+``` typescript
+class Face {
+  protected edge: number;
+
+  constructor(edge: number) {
+    this.edge = edge;
+  }
+}
+
+class Rect extends Face {
+  constructor() {
+    super(4);
+  }
+
+  public getEdge() {
+    return this.edge;
+  }
+}
+
+const rect = new Rect();
+// console.log(rect.getEdge());
+console.log(rect.edge);
+
+```
+
+#### readonly
+
+- `readyonly`는 키워드 읽기 전용 속성
+- 변수를 설정할 때와 생성자에서만 사용 할 수 있다.
+
+``` typescript
+class Face {
+  readonly vertex: number = 3;
+  readonly edge: number;
+  constructor(edge: number) {
+    this.edge = edge;
+  }
+
+  public addEdge() {
+    this.edge++; // 에러발생
+  }
+}
+
+const face = new Face(5);
+console.log(face.edge);
+console.log(face.vertex);
+
+```
+
+## Getter / Setter
+
+- `private` 으로 보호된 변수에 접근해서 사용
+
+``` typescript
+class Face {
+    private _edge: number = 3;
+    get edge() {
+        return this._edge;
+    }
+    set edge(value: number) {
+        this._edge = value
+    }
+}
+
+const face = new Face();
+
+console.log(face.edge);
+face.edge = 5;
+console.log(face.edge);
+``` 
+
+### static
+
+- 클래스를 생성하고 인스턴스를 만들어 각각 관리했지만
+- static은 클래스 전체에서 값을 공유하는 스태틱 멤버로 사용 가능
+
+``` typescript
+class Counter {
+  static count: number = 0;
+  static increase() {
+    this.count++;
+  }
+}
+
+Counter.increase();
+console.log(Counter.count);
+Counter.increase();
+console.log(Counter.count);
+```
+
+## 비동기화 프로그램
+

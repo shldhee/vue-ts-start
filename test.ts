@@ -1,12 +1,15 @@
-// type UNIQID = string | null;
+class Face {
+  readonly vertex: number = 3;
+  readonly edge: number;
+  constructor(edge: number) {
+    this.edge = edge;
+  }
 
-// function getUserID(id: UNIQID) {
-//   console.log(id);
-// }
+  public addEdge() {
+    this.edge++;
+  }
+}
 
-// getUserID("asdfjasdoif");
-// getUserID(null);
-// getUserID(12);
-
-type USER_TYPE = "TESTER" | "ADMIN";
-let userType: USER_TYPE = "TESTER";
+const face = new Face(5);
+console.log(face.edge);
+console.log(face.vertex);
