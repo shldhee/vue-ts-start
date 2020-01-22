@@ -128,3 +128,142 @@ getUserID(12)
 type USER_TYPE = "TESTER" | "ADMIN";
 let userType: USER_TYPE = "TESTER";
 ```
+
+## 함수(Function)
+
+``` typescript
+let point = (x: number, y: number): number {
+    return x + y
+}
+
+function point1(x: number, y: number): number {
+    return x + y
+}
+
+console.log(point(1, 5))
+console.log(point1(2, 5))
+
+function point2(x: number, y: number = 20): number {
+    return x + y
+}
+
+console.log(point2(10))
+
+function point3(x: number, y?: number): number {
+    if (y) {
+        return x + y;
+    }
+    return x;
+}
+
+console.log(point3(3))
+console.log(point3(3,10))
+```
+
+## 인터페이스(Interface)
+
+- 인터페이스를 통해 타입의 이름을 지정하고 코드 타입을 정의하는 방법
+
+
+``` typescript
+interface Size {
+    width: number;
+    height: number;
+}
+
+interface Label {
+    title: string;
+    size: Size;
+}
+
+function labelPrint(label: Label): void {
+    console.log(label)
+}
+
+let myLabel = <Label>{
+    title: '타입스크립트 도서', size: { width: 20, height: 30}
+}
+
+labelPrint(myLabel);
+
+
+///
+
+interface Config {
+    name: string;
+    path: string;
+    version?: string;
+}
+
+interface App {
+    fullPath: string;
+    version?: string;
+}
+
+function applicationInit(config: Config): App {
+    let app = { fullPath: config.path + config.name } as App
+    if (config.version) {
+        app.version = config.version
+    }
+    return app
+}
+
+console.log(applicationInit(<Config>{ path: '/home/', name: 'user' }))
+console.log(applicationInit({ path: '/home/', name: 'user', version: '0.0.1'} as Config))
+```
+
+- `<Config>` 또는 `as Config`는 타입어설션(Type assertions) 표현식으로 같은 의미이다.
+
+## 클래스(Class)
+
+``` typescript
+class Animal {
+    name: string;
+    legs: number;
+
+    constructor(name: string, legs: number = 4) {
+        this.name = name;
+        this.legs = legs;
+    }
+
+    info(): string {
+        return `${this.name} has ${this.legs} legs`;
+    }
+}
+
+let dog: Animal = new Animal("Happy")
+console.log(dog.info());
+``` 
+
+### 상속
+
+``` typescript
+class Animal {
+    name: string;
+    legs: number;
+
+    constructor(name: string, legs: number = 4) {
+        this.name = name;
+        this.legs = legs;
+    }
+
+    info(): string {
+        return `${this.name} has ${this.legs} legs`;
+    }
+}
+
+class Dog extends Animal {
+    constructor(name: string, legs: number = 4) {
+        super(name)   // 
+        super() // legs 는 사용가능
+    }
+
+    bark(sound: string) {
+        return sound + " " + sound
+    }
+}
+
+let dog: Dog = new Dog('빈희', 4);
+console.log(dog.info())
+console.log(dog.bark('멍!'))
+```
