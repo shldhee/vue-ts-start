@@ -53,12 +53,7 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          method: get
-          path: hello
+  - "${file(functions.yml)}"
 
 package:
   exclude:

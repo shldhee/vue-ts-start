@@ -1,0 +1,7 @@
+TodoGetAll:
+  handler: src/todo/all.all
+  events:
+    - http:
+        method: get
+        path: todos/all
+        cors: true
