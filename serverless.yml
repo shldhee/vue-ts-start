@@ -36,7 +36,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: ${opt:stage, 'development'}
+  stage: ${opt:stage,'development'}
   region: ap-northeast-2
   timeout: 30
   iamRoleStatements:
@@ -44,7 +44,7 @@ provider:
       Action:
         - "dynamodb:*"
       Resource:
-        - "arn:Aws:dynamodb:*:*"
+        - "arn:aws:dynamodb:*:*"
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
